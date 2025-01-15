@@ -154,6 +154,14 @@
           aiMessageContent.textContent = "Error fetching response.";
         }
       }
+
+      // Enter 키 입력 처리
+      const inputField = document.getElementById("userInput");
+      inputField.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
+          sendMessage();
+        }
+      });
     </script>
   </body>
 </html>
