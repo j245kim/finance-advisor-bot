@@ -105,16 +105,17 @@
       </div>
       <div class="options">
         <label>
-          <input type="radio" name="소득상태" value="없음" /> 현재 일정한 수입이
-          없으며, 연금이 주 수입원임
+          <input type="radio" name="소득상태" value="없음" point="2" /> 현재
+          일정한 수입이 없으며, 연금이 주 수입원임
         </label>
         <label>
-          <input type="radio" name="소득상태" value="불안정" /> 현재 일정한
-          수입이 발생하고 있으나, 향후 감소하거나 불안정할 것으로 예상
+          <input type="radio" name="소득상태" value="불안정" point="1" /> 현재
+          일정한 수입이 발생하고 있으나, 향후 감소하거나 불안정할 것으로 예상
         </label>
         <label>
-          <input type="radio" name="소득상태" value="안정정" /> 현재 일정한
-          수입이 발생하고 있으며, 향후 현재 수준을 유지하거나 증가할 것으로 예상
+          <input type="radio" name="소득상태" value="안정정" point="0" /> 현재
+          일정한 수입이 발생하고 있으며, 향후 현재 수준을 유지하거나 증가할
+          것으로 예상
         </label>
       </div>
     </div>
@@ -126,19 +127,34 @@
       </div>
       <div class="options">
         <label>
-          <input type="radio" name="금융자산의 비중" value="5%" /> 5% 이하
+          <input type="radio" name="금융자산의 비중" value="5%" point="1" /> 5%
+          이하
         </label>
         <label>
-          <input type="radio" name="금융자산의 비중" value="10%" /> 10% 이하
+          <input type="radio" name="금융자산의 비중" value="10%" point="2" />
+          10% 이하
         </label>
         <label>
-          <input type="radio" name="금융자산의 비중" value="20%" /> 20% 이하
+          <input type="radio" name="금융자산의 비중" value="20%" point="3" />
+          20% 이하
         </label>
         <label>
-          <input type="radio" name="금융자산의 비중" value="30%이하" /> 30% 이하
+          <input
+            type="radio"
+            name="금융자산의 비중"
+            value="30%이하"
+            point="4"
+          />
+          30% 이하
         </label>
         <label>
-          <input type="radio" name="금융자산의 비중" value="30%초과" /> 30% 초과
+          <input
+            type="radio"
+            name="금융자산의 비중"
+            value="30%초과"
+            point="5"
+          />
+          30% 초과
         </label>
       </div>
     </div>
@@ -192,19 +208,19 @@
       </div>
       <div class="options">
         <label
-          ><input type="radio" name="투자목적" value="원금보존" /> 원금보존
-          가능성을 포기하기 어렵기 때문에 예적금 수익률 보다 1~2%정도만 더
-          나오면 됨 (투자수익을 고려하나 원금보존이 더 중요)
+          ><input type="radio" name="투자목적" value="원금보존" point="4" />
+          원금보존 가능성을 포기하기 어렵기 때문에 예적금 수익률 보다 1~2%정도만
+          더 나오면 됨 (투자수익을 고려하나 원금보존이 더 중요)
         </label>
         <label
-          ><input type="radio" name="투자목적" value="표준준" /> 예적금
-          수익률보다 3~5%정도 기대할 수 있다면 원금보존 가능성은 좀 포기할 수
-          있음 (원금보존을 고려하나 투자수익이 더 중요)
+          ><input type="radio" name="투자목적" value="표준준" point="2" />
+          예적금 수익률보다 3~5%정도 기대할 수 있다면 원금보존 가능성은 좀
+          포기할 수 있음 (원금보존을 고려하나 투자수익이 더 중요)
         </label>
         <label
-          ><input type="radio" name="투자목적" value="투자수익익" /> 고수익을
-          기대하고 있으며, 원금손실 가능성은 감수할 수 있음 (손실 위험이
-          있더라도 투자수익이 더 중요)
+          ><input type="radio" name="투자목적" value="투자수익익" point="1" />
+          고수익을 기대하고 있으며, 원금손실 가능성은 감수할 수 있음 (손실
+          위험이 있더라도 투자수익이 더 중요)
         </label>
       </div>
     </div>
@@ -216,21 +232,41 @@
       </div>
       <div class="options">
         <label
-          ><input type="radio" name="투자위험 감수능력" value="투자원금보존" />
+          ><input
+            type="radio"
+            name="투자위험 감수능력"
+            value="투자원금보존"
+            point="0"
+          />
           무슨 일이 있어도 투자 원금은 보전되어야 한다.</label
         >
         <label
-          ><input type="radio" name="투자위험 감수능력" value="10%감수" /> ±10%
-          정도만 변동하더라도, 매도하고 빠져나와야 안심이 될 것 같다
+          ><input
+            type="radio"
+            name="투자위험 감수능력"
+            value="10%감수"
+            point="1"
+          />
+          ±10% 정도만 변동하더라도, 매도하고 빠져나와야 안심이 될 것 같다
         </label>
         <label
-          ><input type="radio" name="투자위험 감수능력" value="20퍼감수수" />
+          ><input
+            type="radio"
+            name="투자위험 감수능력"
+            value="20퍼감수수"
+            point="3"
+          />
           ±20% 정도까지는 당황하지 않고 기다리거나 상황에 따라서 추가매수 등
           대응도 문제없다
         </label>
         <label
-          ><input type="radio" name="투자위험 감수능력" value="30퍼감수" /> ±30%
-          정도 변동은 버틸 수 있으며, 때때로 그 이상의 변동을 기대하여
+          ><input
+            type="radio"
+            name="투자위험 감수능력"
+            value="30퍼감수"
+            point="4"
+          />
+          ±30% 정도 변동은 버틸 수 있으며, 때때로 그 이상의 변동을 기대하여
           적극적으로 운용하려고 한다
         </label>
       </div>
@@ -243,22 +279,41 @@
       </div>
       <div class="options">
         <label
-          ><input type="radio" name="금융상품 지식수준" value="없음" />
+          ><input
+            type="radio"
+            name="금융상품 지식수준"
+            value="없음"
+            point="1"
+          />
 
           예적금 외에 다른 금융투자상품에 투자해본적이 없음</label
         >
         <label
-          ><input type="radio" name="금융상품 지식수준" value="낮음" />주식,
-          채권, 펀드같은 일반적인 상품 정도는 설명만 좀 들으면, 투자할지 여부를
-          결정할 수 있음
+          ><input
+            type="radio"
+            name="금융상품 지식수준"
+            value="낮음"
+            point="2"
+          />주식, 채권, 펀드같은 일반적인 상품 정도는 설명만 좀 들으면, 투자할지
+          여부를 결정할 수 있음
         </label>
         <label
-          ><input type="radio" name="금융상품 지식수준" value="보통" /> 주식,
-          채권, 펀드같은 일반적인 상품은 설명을 듣지 않아도 잘 알고 있으며, 투자
-          판단을 스스로 내릴 수 있음
+          ><input
+            type="radio"
+            name="금융상품 지식수준"
+            value="보통"
+            point="3"
+          />
+          주식, 채권, 펀드같은 일반적인 상품은 설명을 듣지 않아도 잘 알고
+          있으며, 투자 판단을 스스로 내릴 수 있음
         </label>
         <label
-          ><input type="radio" name="금융상품 지식수준" value="높음" />
+          ><input
+            type="radio"
+            name="금융상품 지식수준"
+            value="높음"
+            point="3"
+          />
           파생상품을 포함한 대부분의 금융투자상품에 대해서 충분히 잘 알고
           있음</label
         >
@@ -272,15 +327,31 @@
       </div>
       <div class="options">
         <label
-          ><input type="radio" name="파생상품 투자경험" value="없음" /> 1년
-          미만(경험없음)
+          ><input
+            type="radio"
+            name="파생상품 투자경험"
+            value="없음"
+            point="2"
+          />
+          1년 미만(경험없음)
         </label>
         <label
-          ><input type="radio" name="파생상품 투자경험" value="보통" /> 1년 이상
-          3년 미만
+          ><input
+            type="radio"
+            name="파생상품 투자경험"
+            value="보통"
+            point="2"
+          />
+          1년 이상 3년 미만
         </label>
         <label
-          ><input type="radio" name="파생상품 투자경험" value="높음" /> 3년 이상
+          ><input
+            type="radio"
+            name="파생상품 투자경험"
+            value="높음"
+            point="1"
+          />
+          3년 이상
         </label>
       </div>
     </div>
@@ -295,50 +366,59 @@
       </div>
       <div class="options">
         <label
-          ><input type="radio" name="금융취약자 정보" value="없음" />
+          ><input type="radio" name="금융취약자 정보" value="없음" point="0" />
           금융투자상품에 대한 이해가 부족하거나 투자경험이 없음
         </label>
         <label
-          ><input type="radio" name="금융취약자 정보" value="있음" /> 해당사항
-          없음
+          ><input type="radio" name="금융취약자 정보" value="있음" point="2" />
+          해당사항 없음
         </label>
       </div>
     </div>
 
-    <!-- 저장 버튼 -->
-    <button class="save-button" onclick="saveChoices()">선택 저장</button>
+    <button class="save-button" onclick="calculateGrade()">계산</button>
 
-    <!-- 저장된 선택 표시 -->
-    <div class="saved-choice" id="savedChoices"></div>
+    <div class="saved-choice" id="result"></div>
 
-    <script>
-      function saveChoices() {
-        let choices = [];
-        const questionContainers = document.querySelectorAll(
-          ".question-container"
-        );
-        questionContainers.forEach((container) => {
-          const question = container.querySelector(".question").textContent;
-          const selectedOptions = [];
-          const inputs = container.querySelectorAll("input:checked");
-          inputs.forEach((input) => {
-            selectedOptions.push(input.parentElement.textContent.trim());
-          });
-          if (selectedOptions.length > 0) {
-            choices.push(`${question} : ${selectedOptions.join(", ")}`);
+    <!-- <script>
+      let totalPoints = 0;
+      const radios = document.querySelectorAll('input[type="radio"]');
+      const resultDiv = document.getElementById("result");
+
+      radios.forEach((radio) => {
+        radio.addEventListener("change", function () {
+          updateTotalPoints();
+        });
+      });
+
+      function updateTotalPoints() {
+        totalPoints = 0;
+        radios.forEach((radio) => {
+          if (radio.checked) {
+            totalPoints += parseInt(radio.getAttribute("point"));
           }
         });
-
-        const savedChoicesDiv = document.getElementById("savedChoices");
-        if (choices.length > 0) {
-          savedChoicesDiv.innerHTML =
-            "<h3>저장된 선택:</h3><ul>" +
-            choices.map((choice) => `<li>${choice}</li>`).join("") +
-            "</ul>";
-        } else {
-          savedChoicesDiv.innerHTML = "<p>선택이 저장되지 않았습니다.</p>";
-        }
+        console.log("현재 총 점수:", totalPoints);
       }
-    </script>
+
+      function calculateGrade() {
+        updateTotalPoints();
+
+        let grade = "0";
+        if (totalPoints >= 26) {
+          grade = "최상";
+        } else if (totalPoints >= 21) {
+          grade = "상";
+        } else if (totalPoints >= 16) {
+          grade = "중상";
+        } else if (totalPoints >= 11) {
+          grade = "중";
+        } else {
+          grade = "하";
+        }
+
+        resultDiv.textContent = `총 점수: ${totalPoints}점 (등급: ${grade})`;
+      }
+    </script> -->
   </body>
 </html>
