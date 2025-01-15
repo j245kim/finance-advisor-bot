@@ -366,11 +366,11 @@
       </div>
       <div class="options">
         <label
-          ><input type="radio" name="금융취약자 정보" value="없음" point="0" />
+          ><input type="radio" name="금융취약자 정보" value="없음" point="2" />
           금융투자상품에 대한 이해가 부족하거나 투자경험이 없음
         </label>
         <label
-          ><input type="radio" name="금융취약자 정보" value="있음" point="2" />
+          ><input type="radio" name="금융취약자 정보" value="있음" point="0" />
           해당사항 없음
         </label>
       </div>
@@ -380,45 +380,110 @@
 
     <div class="saved-choice" id="result"></div>
 
-    <!-- <script>
-      let totalPoints = 0;
-      const radios = document.querySelectorAll('input[type="radio"]');
-      const resultDiv = document.getElementById("result");
+    <div class="result">
+      <p>포인트 합:</p>
+      <p id="total-score">0</p>
+      <p id="result-range">결과: 아직 선택하지 않음</p>
+    </div>
 
-      radios.forEach((radio) => {
-        radio.addEventListener("change", function () {
-          updateTotalPoints();
-        });
-      });
-
-      function updateTotalPoints() {
-        totalPoints = 0;
-        radios.forEach((radio) => {
-          if (radio.checked) {
-            totalPoints += parseInt(radio.getAttribute("point"));
-          }
-        });
-        console.log("현재 총 점수:", totalPoints);
-      }
-
+    <script>
       function calculateGrade() {
-        updateTotalPoints();
+        let totalScore = 0;
 
-        let grade = "0";
-        if (totalPoints >= 26) {
-          grade = "최상";
-        } else if (totalPoints >= 21) {
-          grade = "상";
-        } else if (totalPoints >= 16) {
-          grade = "중상";
-        } else if (totalPoints >= 11) {
-          grade = "중";
-        } else {
-          grade = "하";
+        // 첫 번째 문제
+        const question1Answer = document.querySelector(
+          'input[name="연령구분"]:checked'
+        );
+        if (question1Answer) {
+          if (question1Answer.value === "18세 미만")
+            alert("부모님의 동의를 받아요!");
+          else if (question1Answer.value === "18세 이상") totalScore += 0;
+          else if (question1Answer.value === "65세 이상") totalScore += 0;
+          // 나이로 가산점 먹이는거는 불합리함.
         }
 
-        resultDiv.textContent = `총 점수: ${totalPoints}점 (등급: ${grade})`;
+        // 두 번째 문제
+        const question2Answer = document.querySelector(
+          'input[name="소득상태"]:checked'
+        );
+
+        if (question2Answer) {
+          totalScore += parseInt(question2Answer.getAttribute("point"));
+        }
+
+        // 세 번째 문제
+        const question3Answer = document.querySelector(
+          'input[name="금융자산의 비중"]:checked'
+        );
+        if (question3Answer) {
+          totalScore += parseInt(question3Answer.getAttribute("point"));
+        }
+
+        // 네 번째 문제
+        const question4Answers = document.querySelectorAll(
+          'input[name="투자경험"]:checked'
+        );
+        question4Answers.forEach(() => {
+          totalScore += 2;
+        });
+
+        const question5Answers = document.querySelectorAll(
+          'input[name="투자목적"]:checked'
+        );
+
+        question5Answers.forEach(() => {
+          totalScore += 1;
+        });
+
+        const question6Answer = document.querySelector(
+          'input[name="투자위험 감수능력"]:checked'
+        );
+        if (question6Answer) {
+          totalScore += parseInt(question6Answer.getAttribute("point"));
+        }
+
+        const question7Answer = document.querySelector(
+          'input[name="금융상품 지식수준"]:checked'
+        );
+        if (question7Answer) {
+          totalScore += parseInt(question7Answer.getAttribute("point"));
+        }
+
+        const question8Answer = document.querySelector(
+          'input[name="파생상품 투자경험"]:checked'
+        );
+        if (question8Answer) {
+          totalScore += parseInt(question8Answer.getAttribute("point"));
+        }
+
+        const question9Answer = document.querySelector(
+          'input[name="금융취약자 정보"]:checked'
+        );
+        if (question9Answer) {
+          totalScore += parseInt(question9Answer.getAttribute("point"));
+        }
+
+        // 결과를 화면에 업데이트
+        document.getElementById("total-score").textContent = totalScore;
+
+        let resultRange = "";
+
+        // 점수 범위에 따른 투자 성향 출력
+        if (totalScore >= 26) {
+          resultRange = "매우 적극적인 투자 성향";
+        } else if (totalScore >= 21 && totalScore <= 25) {
+          resultRange = "적극적인 투자 성향";
+        } else if (totalScore >= 16 && totalScore <= 20) {
+          resultRange = "중립적인 투자 성향";
+        } else if (totalScore >= 11 && totalScore <= 15) {
+          resultRange = "보수적인 투자 성향";
+        } else {
+          resultRange = "매우 보수적인 투자 성향";
+        }
+
+        document.getElementById("result-range").textContent =
+          "결과: " + resultRange;
       }
-    </script> -->
+    </script>
   </body>
 </html>
