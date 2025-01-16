@@ -22,4 +22,5 @@ from myapp import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('chat/<str:message>', views.chat),
+    path('invest_chat/<str:invest_rank>', views.invest_chat)
 ]

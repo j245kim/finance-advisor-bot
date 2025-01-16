@@ -28,7 +28,7 @@ if __name__ == "__main__":
     messages = [
                     {
                         "role": "system",
-                        "content": "You are an analyst who answers questions accurately based on coin data and newspaper articles, English question/Korean question"
+                        "content": "You are an analyst who answers questions accurately based on coin data and newspaper articles."
                     }
                 ]
     with open(session_path, mode='w', encoding='utf-8', errors='ignore') as f:
