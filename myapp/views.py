@@ -18,7 +18,7 @@ def chat(req, message):
     # session 디렉토리에 있는 message.json 파일 경로
     session_path = rf'{Path(__file__).parents[1]}\session\messages.json'
     # 한글 사용을 위해 한글 -> 영어로 답변 생성한 다음, 영어 -> 한글로 응답
-    translator = Translator(service_urls=['translate.google.co.kr'])
+    translator = Translator(service_urls=['translate.google.com'])
     trans_message = translator.translate(message, dest='en', src='ko').text
 
     # Messages를 가져온 다음, 현재 요청한 message 추가

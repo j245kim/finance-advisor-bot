@@ -2,6 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import json
+from pathlib import Path
 
 
 def main():
@@ -20,3 +22,14 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+    # 매번 실행마다 messages 초기화
+    session_path = rf'{Path(__file__).parents[0]}\session\messages.json'
+    messages = [
+                    {
+                        "role": "system",
+                        "content": "You are an analyst who answers questions accurately based on coin data and newspaper articles, English question/Korean question"
+                    }
+                ]
+    with open(session_path, mode='w', encoding='utf-8', errors='ignore') as f:
+        json.dump(messages, f, ensure_ascii=False, indent=4)
