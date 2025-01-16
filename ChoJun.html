@@ -86,14 +86,16 @@
       <div class="question">현재 고객님의 나이는 어떻게 되십니까?</div>
       <div class="options">
         <label>
-          <input type="radio" name="연령구분" value="18세 미만" /> 18세 미만
+          <input type="radio" name="연령구분" value="18세 미만" point="0" />
+          18세 미만
         </label>
         <label>
-          <input type="radio" name="연령구분" value="18세 이상" /> 18세 이상
-          65세 미만
+          <input type="radio" name="연령구분" value="18세 이상" point="0" />
+          18세 이상 65세 미만
         </label>
         <label>
-          <input type="radio" name="연령구분" value="65세 이상" /> 65세 이상
+          <input type="radio" name="연령구분" value="65세 이상" point="0" />
+          65세 이상
         </label>
       </div>
     </div>
@@ -244,7 +246,6 @@
     </div>
 
     <!-- 다섯 번째 문제 -->
-
     <div class="question-container" id="question5">
       <div class="question">
         고객님은 다음 중 어떤 목적으로 투자하는 편입니까?
@@ -296,7 +297,7 @@
           ><input
             type="radio"
             name="투자위험 감수능력"
-            value="20퍼감수수"
+            value="20퍼감수"
             point="3"
           />
           ±20% 정도까지는 당황하지 않고 기다리거나 상황에 따라서 추가매수 등
@@ -409,126 +410,72 @@
       </div>
       <div class="options">
         <label
-          ><input type="radio" name="금융취약자 정보" value="없음" point="2" />
+          ><input type="radio" name="금융취약자 정보" value="없음" point="0" />
           금융투자상품에 대한 이해가 부족하거나 투자경험이 없음
         </label>
         <label
-          ><input type="radio" name="금융취약자 정보" value="있음" point="0" />
+          ><input type="radio" name="금융취약자 정보" value="있음" point="2" />
           해당사항 없음
         </label>
       </div>
     </div>
 
-    <button class="save-button" onclick="calculateGrade()">계산</button>
+    <button class="save-button" onclick="sendDataToApi()">계산</button>
 
-    <div class="saved-choice" id="result"></div>
-
-    <div class="result">
-      <p>포인트 합:</p>
-      <p id="total-score">0</p>
-      <p id="result-range">결과: 아직 선택하지 않음</p>
-    </div>
-
-    <script>
-      function calculateGrade() {
-        let totalScore = 0;
-
-        // 첫 번째 문제
-        const question1Answer = document.querySelector(
-          'input[name="연령구분"]:checked'
-        );
-        if (question1Answer) {
-          if (question1Answer.value === "18세 미만")
-            alert("부모님의 동의를 받아요!");
-          else if (question1Answer.value === "18세 이상") totalScore += 0;
-          else if (question1Answer.value === "65세 이상") totalScore += 0;
-          // 나이로 가산점 먹이는거는 불합리함.
-        }
-
-        // 두 번째 문제
-        const question2Answer = document.querySelector(
-          'input[name="소득상태"]:checked'
-        );
-
-        if (question2Answer) {
-          totalScore += parseInt(question2Answer.getAttribute("point"));
-        }
-
-        // 세 번째 문제
-        const question3Answer = document.querySelector(
-          'input[name="금융자산의 비중"]:checked'
-        );
-        if (question3Answer) {
-          totalScore += parseInt(question3Answer.getAttribute("point"));
-        }
-
-        // 네 번째 문제
-        const question4Answers = document.querySelectorAll(
-          'input[name="투자경험1"]:checked, input[name="투자경험2"]:checked, input[name="투자경험3"]:checked'
-        );
-
-        question4Answers.forEach((answer) => {
-          totalScore += parseInt(answer.getAttribute("point"));
-        });
-
-        // 다섯 번째 문제
-        const question5Answers = document.querySelectorAll(
-          'input[name="투자목적"]:checked'
-        );
-
-        question5Answers.forEach(() => {
-          totalScore += 1;
-        });
-
-        const question6Answer = document.querySelector(
-          'input[name="투자위험 감수능력"]:checked'
-        );
-        if (question6Answer) {
-          totalScore += parseInt(question6Answer.getAttribute("point"));
-        }
-
-        const question7Answer = document.querySelector(
-          'input[name="금융상품 지식수준"]:checked'
-        );
-        if (question7Answer) {
-          totalScore += parseInt(question7Answer.getAttribute("point"));
-        }
-
-        const question8Answer = document.querySelector(
-          'input[name="파생상품 투자경험"]:checked'
-        );
-        if (question8Answer) {
-          totalScore += parseInt(question8Answer.getAttribute("point"));
-        }
-
-        const question9Answer = document.querySelector(
-          'input[name="금융취약자 정보"]:checked'
-        );
-        if (question9Answer) {
-          totalScore += parseInt(question9Answer.getAttribute("point"));
-        }
-
-        // 결과를 화면에 업데이트
-        document.getElementById("total-score").textContent = totalScore;
-
-        let resultRange = "";
-
-        // 점수 범위에 따른 투자 성향 출력
-        if (totalScore >= 26) {
-          resultRange = "매우 적극적인 투자 성향";
-        } else if (totalScore >= 21 && totalScore <= 25) {
-          resultRange = "적극적인 투자 성향";
-        } else if (totalScore >= 16 && totalScore <= 20) {
-          resultRange = "중립적인 투자 성향";
-        } else if (totalScore >= 11 && totalScore <= 15) {
-          resultRange = "보수적인 투자 성향";
-        } else {
-          resultRange = "매우 보수적인 투자 성향";
-        }
-
-        document.getElementById("result-range").textContent =
-          "결과: " + resultRange;
-      }
-    </script>
+    <div id="result"></div>
+    <span id="output"></span>
   </body>
+  <script>
+    function collectSurvey() {
+      const questions = document.querySelectorAll(".question-container");
+      let responses = [];
+
+      questions.forEach((question, index) => {
+        const questionId = question.id;
+        const questionText = question.querySelector(".question").innerText;
+        const selectedOption = question.querySelector(
+          'input[type="radio"]:checked'
+        );
+
+        if (selectedOption) {
+          const optionValue = selectedOption.value;
+          const points = parseInt(selectedOption.getAttribute("point")) || 0;
+          responses.push({
+            question_id: questionId,
+            question_text: questionText,
+            selected_option: optionValue,
+            points: points,
+          });
+        }
+      });
+      return responses.join(",");
+    }
+
+    async function sendDataToApi() {
+      const result1 = collectSurvey(); // 위 함수에서 계산된 데이터
+      const api = `http://127.0.0.1:8000/GivemeJson/${result1}/`;
+
+      try {
+        // fetch를 사용해서 API 요청 보내기
+        const response = await fetch(api);
+
+        // 응답이 정상적이면
+        if (response.ok) {
+          // JSON 형식으로 응답 데이터 파싱
+          const data = await response.json();
+
+          // greeting 필드를 화면에 출력
+          document.getElementById("output").textContent = data.type;
+        } else {
+          // 응답이 실패한 경우
+          document.getElementById("output").textContent =
+            "API 요청에 실패했습니다.";
+        }
+      } catch (error) {
+        // 네트워크 오류 등 예외 처리
+        document.getElementById("output").textContent =
+          "오류 발생: " + error.message;
+      }
+    }
+  </script>
 </html>
