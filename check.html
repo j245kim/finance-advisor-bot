@@ -430,6 +430,18 @@
     </div>
 
     <script>
+      const ageRadios = document.querySelectorAll('input[name="연령구분"]');
+
+      ageRadios.forEach((radio) => {
+        radio.addEventListener("change", function () {
+          if (this.value === "18세 미만") {
+            alert("부모님의 동의를 받으세요!");
+          }
+        });
+      });
+    </script>
+
+    <script>
       function calculateGrade() {
         let totalScore = 0;
 
@@ -439,7 +451,7 @@
         );
         if (question1Answer) {
           if (question1Answer.value === "18세 미만")
-            alert("부모님의 동의를 받아요!");
+            alert("부모님의 동의를 받으세요!");
           else if (question1Answer.value === "18세 이상") totalScore += 0;
           else if (question1Answer.value === "65세 이상") totalScore += 0;
           // 나이로 가산점 먹이는거는 불합리함.
