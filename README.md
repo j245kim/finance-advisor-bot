@@ -28,7 +28,7 @@
 
 ```bash
 git clone https://github.com/j245kim/finance-advisor-bot.git
-cd financial-survey
+cd finance-advisor-bot
 ```
 
 cd myproject 이후
