@@ -490,6 +490,7 @@
         const question7Answer = document.querySelector(
           'input[name="금융상품 지식수준"]:checked'
         );
+
         if (question7Answer) {
           totalScore += parseInt(question7Answer.getAttribute("point"));
         }
@@ -515,15 +516,15 @@
 
         // 점수 범위에 따른 투자 성향 출력
         if (totalScore >= 26) {
-          resultRange = "매우 적극적인 투자 성향";
+          resultRange = "공격 투자형";
         } else if (totalScore >= 21 && totalScore <= 25) {
-          resultRange = "적극적인 투자 성향";
+          resultRange = "적극 투자형";
         } else if (totalScore >= 16 && totalScore <= 20) {
-          resultRange = "중립적인 투자 성향";
+          resultRange = "위험 중립형";
         } else if (totalScore >= 11 && totalScore <= 15) {
-          resultRange = "보수적인 투자 성향";
+          resultRange = "안정 중립형";
         } else {
-          resultRange = "매우 보수적인 투자 성향";
+          resultRange = "안정형";
         }
 
         document.getElementById("result-range").textContent =
