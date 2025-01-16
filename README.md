@@ -27,7 +27,7 @@
 먼저, GitHub에서 프로젝트를 클론합니다:
 
 ```bash
-git clone https://github.com/yourusername/financial-survey.git
+git clone https://github.com/j245kim/finance-advisor-bot.git
 cd financial-survey
 ```
 
