@@ -28,7 +28,7 @@ if __name__ == "__main__":
     messages = [
                     {
                         "role": "system",
-                        "content": "You are an analyst who answers questions accurately based on coin data and newspaper articles."
+                        "content": "You are a very smart AI chatbot. Please answer user questions accurately and kindly. 당신은 아주 똑똑한 AI 챗봇입니다. 사용자의 질문에 정확하고, 친절하게 답변해주세요."
                     }
                 ]
     with open(session_path, mode='w', encoding='utf-8', errors='ignore') as f:
