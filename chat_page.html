@@ -137,20 +137,10 @@
           const response = await fetch(
             `http://127.0.0.1:8000/chat/${encodeURIComponent(userMessage)}`
           );
-          const reader = response.body.getReader();
-          const decoder = new TextDecoder("utf-8");
-          let done = false;
-
-          aiMessageContent.textContent = "";
-          while (!done) {
-            const { value, done: doneReading } = await reader.read();
-            done = doneReading;
-            aiMessageContent.textContent += decoder.decode(value, {
-              stream: true,
-            });
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-          }
+          const data = await response.json();
+          aiMessageContent.textContent = data.content;
         } catch (error) {
+          console.error("Error fetching AI response:", error);
           aiMessageContent.textContent = "Error fetching response.";
         }
       }

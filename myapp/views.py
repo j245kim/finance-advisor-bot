@@ -1,4 +1,3 @@
-import os
 import json
 from pathlib import Path
 
@@ -6,7 +5,7 @@ from llama_cpp import Llama
 from transformers import AutoTokenizer
 
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -52,7 +51,7 @@ def chat(req, message):
     model._sampler.close()
     model.close()
 
-    return HttpResponse(completion, content_type='text/plain')
+    return JsonResponse({'content': completion}, json_dumps_params={'ensure_ascii': False}, safe=False, status=200)
 
 
 def invest_chat(req, invest_rank):
