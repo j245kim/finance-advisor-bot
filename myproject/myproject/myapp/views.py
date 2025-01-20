@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+
 import pandas as pd
 import os
 import json
@@ -11,6 +11,9 @@ from googletrans import Translator
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 
+import io
+from django.views.decorators.csrf import csrf_exempt
+from gtts import gTTS
 # Create your views here.
 
 def GivemeJson(request,input_string):
@@ -65,3 +68,30 @@ def invest_chat(req, invest_rank):
     response_dict = {'response': final_completion}
 
     return JsonResponse(response_dict, json_dumps_params={'ensure_ascii': False}, safe=False, status=200)
+
+
+
+@csrf_exempt
+def tts(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            input_string = data.get('text', '')
+
+            if not input_string:
+                return JsonResponse({'error': 'No text provided'}, status=400)
+
+            # TTS 생성
+            tts = gTTS(input_string, lang='ko')
+            audio_stream = io.BytesIO()
+            tts.write_to_fp(audio_stream)
+            audio_stream.seek(0)
+
+            # 오디오 파일 반환
+            response = HttpResponse(audio_stream, content_type='audio/mpeg')
+            response['Content-Disposition'] = 'attachment; filename="tts_audio.mp3"'
+            return response
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
