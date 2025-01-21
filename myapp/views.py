@@ -24,9 +24,10 @@ def bllossom(req, message):
     messages.append({"role": "user", "content": message})
     
     # ChatBot 대답
+    max_tokens = model._n_ctx
     prompt = tokenizer.apply_chat_template(
                                                 messages, 
-                                                tokenize = False,
+                                                tokenize=False,
                                                 add_generation_prompt=True
                                             )
 
@@ -34,22 +35,30 @@ def bllossom(req, message):
     prompt = prompt.replace('<|start_header_id|>', '\n\n<|start_header_id|>').strip()
 
     generation_kwargs = {
-                            "max_tokens":512,
-                            "stop":["<|eot_id|>"],
-                            "echo":True,
-                            "top_p":0.9,
-                            "temperature":0.6,
+                            "max_tokens": max_tokens,
+                            "stop": ["<|eot_id|>"],
+                            "echo": True,
+                            "top_p": 0.9,
+                            "temperature": 0.6,
                         }
-
-    resonse_msg = model(prompt, **generation_kwargs)
-    completion = resonse_msg['choices'][0]['text'][len(prompt):].strip()
+    
+    if len(prompt) >= max_tokens:
+        completion = '죄송합니다. 최대 Context Window에 도달했습니다. 더 이상 답변이 불가능합니다.'
+    else:
+        try:
+            resonse_msg = model(prompt, **generation_kwargs)
+            completion = resonse_msg['choices'][0]['text'][len(prompt):].strip()
+        except Exception as e:
+            print(e)
+            completion = '죄송합니다. 대답을 생성하는 중에 오류가 발생했습니다.'
+        finally:
+            if model is not None:
+                model._sampler.close()
+                model.close()
 
     messages.append({"role": "assistant", "content": completion})
     with open(session_path, mode='w', encoding='utf-8', errors='ignore') as f:
         json.dump(messages, f, ensure_ascii=False, indent=4)
-    
-    model._sampler.close()
-    model.close()
 
     return JsonResponse({'content': completion}, json_dumps_params={'ensure_ascii': False}, safe=False, status=200)
 

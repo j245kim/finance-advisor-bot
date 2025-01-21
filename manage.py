@@ -25,10 +25,11 @@ if __name__ == "__main__":
 
     # 매번 실행마다 messages 초기화
     session_path = rf'{Path(__file__).parents[0]}\session\messages.json'
+    system_instruction = "You are a very smart AI chatbot. Please answer user questions accurately and kindly. 당신은 아주 똑똑한 AI 챗봇입니다. 사용자의 질문에 정확하고, 친절하게 답변해주세요."
     messages = [
                     {
                         "role": "system",
-                        "content": "You are a very smart AI chatbot. Please answer user questions accurately and kindly. 당신은 아주 똑똑한 AI 챗봇입니다. 사용자의 질문에 정확하고, 친절하게 답변해주세요."
+                        "content": system_instruction
                     }
                 ]
     with open(session_path, mode='w', encoding='utf-8', errors='ignore') as f:
