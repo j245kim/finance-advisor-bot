@@ -10,8 +10,8 @@ from django.http import JsonResponse
 # Create your views here.
 
 
-def sllm1(req, message):
-    model_dir_path = rf'{Path(__file__).parents[1]}\model'
+def bllossom(req, message):
+    model_dir_path = rf'{Path(__file__).parents[1]}\models\Bllossom'
     model_path = rf'{model_dir_path}\llama-3.2-Korean-Bllossom-3B-gguf-Q4_K_M.gguf'
     tokenizer = AutoTokenizer.from_pretrained(model_dir_path)
     model = Llama(model_path)

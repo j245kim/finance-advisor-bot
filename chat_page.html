@@ -135,7 +135,7 @@
 
         try {
           const response = await fetch(
-            `http://127.0.0.1:8000/sllm1/${encodeURIComponent(userMessage)}`
+            `http://127.0.0.1:8000/bllossom/${encodeURIComponent(userMessage)}`
           );
           const data = await response.json();
           aiMessageContent.textContent = data.content;

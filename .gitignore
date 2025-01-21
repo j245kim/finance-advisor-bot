@@ -1,3 +1,4 @@
 *.env
 myproject/settings.py
-model/
+
+models/
