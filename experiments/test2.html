@@ -46,6 +46,7 @@
         border: none;
         cursor: pointer;
         border-radius: 5px;
+        font-size: 14px;
       }
 
       .dropdown-button img {
@@ -55,7 +56,7 @@
       }
 
       .dropdown-button:hover {
-        background-color: #f0f0f0;
+        background-color: #d1e7dd;
       }
 
       .dropdown-menu {
@@ -73,8 +74,9 @@
       .dropdown-menu button {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         width: 100%;
-        padding: 10px;
+        padding: 10px 15px;
         border: none;
         background: white;
         text-align: left;
@@ -91,6 +93,12 @@
 
       .dropdown-menu button:hover {
         background: #f0f0f0;
+      }
+
+      .dropdown-menu .checkmark {
+        color: #007bff;
+        font-weight: bold;
+        margin-left: auto;
       }
 
       .messages {
@@ -169,17 +177,20 @@
             <img src="C:\Users\User\Desktop\finance-advisor-bot\images\models\down_arrow.png" alt="arrow" />
           </button>
           <div class="dropdown-menu" id="dropdownMenu">
-            <button onclick="selectModel('Bllossom')">
-              <img src="C:\Users\User\Desktop\finance-advisor-bot\images\models\bllossom_icon.png" alt="Bllossom" />
-              Bllossom
+            <button onclick="selectModel('blossom')">
+              <img src="C:\Users\User\Desktop\finance-advisor-bot\images\models\bllossom_icon.png" alt="blossom" />
+              blossom
+              <span id="blossomCheck" class="checkmark" style="display: none;">✓</span>
             </button>
-            <button onclick="selectModel('LG AI EXAONE')" class="selected">
-              <img src="C:\Users\User\Desktop\finance-advisor-bot\images\models\lg_ai_exaone_icon.png" alt="LG AI EXAONE" />
-              LG AI EXAONE
+            <button onclick="selectModel('LG')">
+              <img src="C:\Users\User\Desktop\finance-advisor-bot\images\models\lg_icon.png" alt="LG" />
+              LG
+              <span id="LGCheck" class="checkmark">✓</span>
             </button>
-            <button onclick="selectModel('etc')">
-              <img src="C:\Users\User\Desktop\finance-advisor-bot\images\models\hf_icon.png" alt="etc" />
-              etc
+            <button onclick="selectModel('saltlux')">
+              <img src="C:\Users\User\Desktop\finance-advisor-bot\images\models\hf_icon.png" alt="saltlux" />
+              saltlux
+              <span id="saltluxCheck" class="checkmark" style="display: none;">✓</span>
             </button>
           </div>
         </div>
@@ -196,13 +207,24 @@
     </div>
 
     <script>
+      let selectedModel = "LG";
+
       function toggleDropdown() {
         const menu = document.getElementById("dropdownMenu");
         menu.style.display = menu.style.display === "block" ? "none" : "block";
       }
 
       function selectModel(model) {
-        console.log("Selected model:", model);
+        selectedModel = model;
+
+        // Reset checkmarks
+        document.querySelectorAll(".checkmark").forEach((el) => {
+          el.style.display = "none";
+        });
+
+        // Show checkmark for selected model
+        document.getElementById(`${model}Check`).style.display = "inline";
+
         toggleDropdown(); // Close the dropdown menu
       }
 
@@ -216,49 +238,6 @@
           !dropdownMenu.contains(event.target)
         ) {
           dropdownMenu.style.display = "none";
-        }
-      });
-
-      async function sendMessage() {
-        const inputField = document.getElementById("userInput");
-        const messagesDiv = document.getElementById("messages");
-        const userMessage = inputField.value;
-
-        if (!userMessage.trim()) return;
-
-        const userMessageDiv = document.createElement("div");
-        userMessageDiv.className = "message user";
-        userMessageDiv.innerHTML = `<div class="message-content">${userMessage}</div>`;
-        messagesDiv.appendChild(userMessageDiv);
-
-        inputField.value = "";
-
-        const aiMessageDiv = document.createElement("div");
-        aiMessageDiv.className = "message ai";
-        const aiMessageContent = document.createElement("div");
-        aiMessageContent.className = "message-content";
-        aiMessageContent.textContent = "...";
-        aiMessageDiv.appendChild(aiMessageContent);
-        messagesDiv.appendChild(aiMessageDiv);
-
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
-        try {
-          const response = await fetch(
-            `http://127.0.0.1:8000/bllossom/${encodeURIComponent(userMessage)}`
-          );
-          const data = await response.json();
-          aiMessageContent.textContent = data.content;
-        } catch (error) {
-          console.error("Error fetching AI response:", error);
-          aiMessageContent.textContent = "Error fetching response.";
-        }
-      }
-
-      const inputField = document.getElementById("userInput");
-      inputField.addEventListener("keyup", (event) => {
-        if (event.key === "Enter") {
-          sendMessage();
         }
       });
     </script>
