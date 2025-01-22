@@ -182,11 +182,15 @@
       <div class="header">
         <div class="dropdown-container">
           <button class="dropdown-button" onclick="toggleDropdown()">
-            <span id="currentModel">LG AI EXAONE</span>
+            <span id="currentModel">Bllossom</span>
             <img src="http://127.0.0.1:8000/images/downarrow" alt="arrow" />
           </button>
           <div class="dropdown-menu" id="dropdownMenu">
-            <button onclick="selectModel('Bllossom')" data-model="Bllossom">
+            <button
+              onclick="selectModel('Bllossom')"
+              data-model="Bllossom"
+              class="selected"
+            >
               <div class="left-content">
                 <img
                   src="http://127.0.0.1:8000/images/bllossom"
@@ -204,7 +208,6 @@
             <button
               onclick="selectModel('LG AI EXAONE')"
               data-model="LG AI EXAONE"
-              class="selected"
             >
               <div class="left-content">
                 <img
@@ -250,7 +253,7 @@
     </div>
 
     <script>
-      let currentSelectedModel = "LG AI EXAONE";
+      let currentSelectedModel = "Bllossom";
 
       function toggleDropdown() {
         const menu = document.getElementById("dropdownMenu");
