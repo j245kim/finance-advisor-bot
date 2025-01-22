@@ -46,7 +46,6 @@
         border: none;
         cursor: pointer;
         border-radius: 5px;
-        font-size: 14px;
       }
 
       .dropdown-button img {
@@ -56,7 +55,7 @@
       }
 
       .dropdown-button:hover {
-        background-color: #d1e7dd;
+        background-color: #f0f0f0;
       }
 
       .dropdown-menu {
@@ -69,6 +68,7 @@
         border-radius: 5px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 1000;
+        min-width: 200px;
       }
 
       .dropdown-menu button {
@@ -76,7 +76,7 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        padding: 10px 15px;
+        padding: 10px;
         border: none;
         background: white;
         text-align: left;
@@ -85,20 +85,29 @@
         color: #333;
       }
 
-      .dropdown-menu button img {
+      .dropdown-menu button .left-content {
+        display: flex;
+        align-items: center;
+      }
+
+      .dropdown-menu button img.model-icon {
         margin-right: 10px;
         width: 20px;
         height: 20px;
       }
 
-      .dropdown-menu button:hover {
-        background: #f0f0f0;
+      .dropdown-menu button img.check-icon {
+        width: 16px;
+        height: 16px;
+        visibility: hidden;
       }
 
-      .dropdown-menu .checkmark {
-        color: #007bff;
-        font-weight: bold;
-        margin-left: auto;
+      .dropdown-menu button.selected img.check-icon {
+        visibility: visible;
+      }
+
+      .dropdown-menu button:hover {
+        background: #f0f0f0;
       }
 
       .messages {
@@ -173,24 +182,58 @@
       <div class="header">
         <div class="dropdown-container">
           <button class="dropdown-button" onclick="toggleDropdown()">
-            Models
-            <img src="C:\Users\User\Desktop\finance-advisor-bot\images\models\down_arrow.png" alt="arrow" />
+            <span id="currentModel">LG AI EXAONE</span>
+            <img src="http://127.0.0.1:8000/images/downarrow" alt="arrow" />
           </button>
           <div class="dropdown-menu" id="dropdownMenu">
-            <button onclick="selectModel('blossom')">
-              <img src="C:\Users\User\Desktop\finance-advisor-bot\images\models\bllossom_icon.png" alt="blossom" />
-              blossom
-              <span id="blossomCheck" class="checkmark" style="display: none;">✓</span>
+            <button onclick="selectModel('Bllossom')" data-model="Bllossom">
+              <div class="left-content">
+                <img
+                  src="http://127.0.0.1:8000/images/bllossom"
+                  alt="Bllossom"
+                  class="model-icon"
+                />
+                Bllossom
+              </div>
+              <img
+                src="http://127.0.0.1:8000/images/check"
+                alt="check"
+                class="check-icon"
+              />
             </button>
-            <button onclick="selectModel('LG')">
-              <img src="C:\Users\User\Desktop\finance-advisor-bot\images\models\lg_icon.png" alt="LG" />
-              LG
-              <span id="LGCheck" class="checkmark">✓</span>
+            <button
+              onclick="selectModel('LG AI EXAONE')"
+              data-model="LG AI EXAONE"
+              class="selected"
+            >
+              <div class="left-content">
+                <img
+                  src="http://127.0.0.1:8000/images/lg_ai_exaone"
+                  alt="LG AI EXAONE"
+                  class="model-icon"
+                />
+                LG AI EXAONE
+              </div>
+              <img
+                src="http://127.0.0.1:8000/images/check"
+                alt="check"
+                class="check-icon"
+              />
             </button>
-            <button onclick="selectModel('saltlux')">
-              <img src="C:\Users\User\Desktop\finance-advisor-bot\images\models\hf_icon.png" alt="saltlux" />
-              saltlux
-              <span id="saltluxCheck" class="checkmark" style="display: none;">✓</span>
+            <button onclick="selectModel('etc')" data-model="etc">
+              <div class="left-content">
+                <img
+                  src="http://127.0.0.1:8000/images/huggingface"
+                  alt="etc"
+                  class="model-icon"
+                />
+                etc
+              </div>
+              <img
+                src="http://127.0.0.1:8000/images/check"
+                alt="check"
+                class="check-icon"
+              />
             </button>
           </div>
         </div>
@@ -207,7 +250,7 @@
     </div>
 
     <script>
-      let selectedModel = "LG";
+      let currentSelectedModel = "LG AI EXAONE";
 
       function toggleDropdown() {
         const menu = document.getElementById("dropdownMenu");
@@ -215,17 +258,18 @@
       }
 
       function selectModel(model) {
-        selectedModel = model;
-
-        // Reset checkmarks
-        document.querySelectorAll(".checkmark").forEach((el) => {
-          el.style.display = "none";
+        const buttons = document.querySelectorAll(".dropdown-menu button");
+        buttons.forEach((button) => {
+          if (button.getAttribute("data-model") === model) {
+            button.classList.add("selected");
+          } else {
+            button.classList.remove("selected");
+          }
         });
 
-        // Show checkmark for selected model
-        document.getElementById(`${model}Check`).style.display = "inline";
-
-        toggleDropdown(); // Close the dropdown menu
+        currentSelectedModel = model;
+        document.getElementById("currentModel").textContent = model;
+        toggleDropdown();
       }
 
       document.addEventListener("click", (event) => {
@@ -238,6 +282,65 @@
           !dropdownMenu.contains(event.target)
         ) {
           dropdownMenu.style.display = "none";
+        }
+      });
+
+      async function sendMessage() {
+        const inputField = document.getElementById("userInput");
+        const messagesDiv = document.getElementById("messages");
+        const userMessage = inputField.value;
+
+        if (!userMessage.trim()) return;
+
+        const userMessageDiv = document.createElement("div");
+        userMessageDiv.className = "message user";
+        userMessageDiv.innerHTML = `<div class="message-content">${userMessage}</div>`;
+        messagesDiv.appendChild(userMessageDiv);
+
+        inputField.value = "";
+
+        const aiMessageDiv = document.createElement("div");
+        aiMessageDiv.className = "message ai";
+        const aiMessageContent = document.createElement("div");
+        aiMessageContent.className = "message-content";
+        aiMessageContent.textContent = "...";
+        aiMessageDiv.appendChild(aiMessageContent);
+        messagesDiv.appendChild(aiMessageDiv);
+
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+        try {
+          // API 엔드포인트를 선택된 모델에 따라 다르게 설정
+          let apiEndpoint;
+          switch (currentSelectedModel) {
+            case "Bllossom":
+              apiEndpoint = "http://127.0.0.1:8000/bllossom/";
+              break;
+            case "LG AI EXAONE":
+              apiEndpoint = "http://127.0.0.1:8000/lg-ai-exaone/";
+              break;
+            case "etc":
+              apiEndpoint = "http://127.0.0.1:8000/etc/";
+              break;
+            default:
+              apiEndpoint = "http://127.0.0.1:8000/lg-ai-exaone/";
+          }
+
+          const response = await fetch(
+            `${apiEndpoint}${encodeURIComponent(userMessage)}`
+          );
+          const data = await response.json();
+          aiMessageContent.textContent = data.content;
+        } catch (error) {
+          console.error("Error fetching AI response:", error);
+          aiMessageContent.textContent = "Error fetching response.";
+        }
+      }
+
+      const inputField = document.getElementById("userInput");
+      inputField.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
+          sendMessage();
         }
       });
     </script>

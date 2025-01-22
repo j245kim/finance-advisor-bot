@@ -1,6 +1,8 @@
+import os
 import json
 from pathlib import Path
 
+from dotenv import load_dotenv
 from llama_cpp import Llama
 from transformers import AutoTokenizer, PreTrainedTokenizer
 
@@ -21,6 +23,8 @@ def load_images(req, image_name):
             image_path = rf'{image_path}\model_images\lg_ai_exaone_icon.png'
         case 'huggingface':
             image_path = rf'{image_path}\model_images\hf_icon.png'
+        case 'check':
+            image_path = rf'{image_path}\check.png'
         case _:
             image_path = rf'{image_path}\question_mark.png'
         
