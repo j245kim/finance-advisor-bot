@@ -21,6 +21,7 @@ from myapp import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('images/<str:image_name>', views.load_images),
     path('bllossom/<str:message>', views.bllossom),
     path('invest_chat/<str:invest_rank>', views.invest_chat)
 ]

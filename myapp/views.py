@@ -5,10 +5,27 @@ from llama_cpp import Llama
 from transformers import AutoTokenizer, PreTrainedTokenizer
 
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, FileResponse
 
 # Create your views here.
 
+
+def load_images(req, image_name):
+    image_path = rf'{Path(__file__).parents[1]}\images'
+    match image_name:
+        case 'downarrow':
+            image_path = rf'{image_path}\model_images\down_arrow.png'
+        case 'bllossom':
+            image_path = rf'{image_path}\model_images\bllossom_icon.png'
+        case 'lg_ai_exaone':
+            image_path = rf'{image_path}\model_images\lg_ai_exaone_icon.png'
+        case 'huggingface':
+            image_path = rf'{image_path}\model_images\hf_icon.png'
+        case _:
+            image_path = rf'{image_path}\question_mark.png'
+        
+    return FileResponse(open(image_path, 'rb'), content_type='image/png')
+    
 
 def bllossom(req, message):
     def prompt_gen(tokenizer: PreTrainedTokenizer, messages: list[dict[str, str]], max_tokens) -> str:
