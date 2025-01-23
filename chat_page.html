@@ -205,17 +205,14 @@
                 class="check-icon"
               />
             </button>
-            <button
-              onclick="selectModel('LG AI EXAONE')"
-              data-model="LG AI EXAONE"
-            >
+            <button onclick="selectModel('ChatGPT')" data-model="ChatGPT">
               <div class="left-content">
                 <img
-                  src="http://127.0.0.1:8000/images/lg_ai_exaone"
-                  alt="LG AI EXAONE"
+                  src="http://127.0.0.1:8000/images/chatgpt"
+                  alt="ChatGPT"
                   class="model-icon"
                 />
-                LG AI EXAONE
+                ChatGPT
               </div>
               <img
                 src="http://127.0.0.1:8000/images/check"
@@ -319,14 +316,14 @@
             case "Bllossom":
               apiEndpoint = "http://127.0.0.1:8000/bllossom/";
               break;
-            case "LG AI EXAONE":
-              apiEndpoint = "http://127.0.0.1:8000/lg-ai-exaone/";
+            case "ChatGPT":
+              apiEndpoint = "http://127.0.0.1:8000/chatgpt/";
               break;
             case "etc":
               apiEndpoint = "http://127.0.0.1:8000/etc/";
               break;
             default:
-              apiEndpoint = "http://127.0.0.1:8000/lg-ai-exaone/";
+              apiEndpoint = "http://127.0.0.1:8000/bllossom/";
           }
 
           const response = await fetch(

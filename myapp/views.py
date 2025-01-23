@@ -19,14 +19,14 @@ def load_images(req, image_name):
             image_path = rf'{image_path}\model_images\down_arrow.png'
         case 'bllossom':
             image_path = rf'{image_path}\model_images\bllossom_icon.png'
-        case 'lg_ai_exaone':
-            image_path = rf'{image_path}\model_images\lg_ai_exaone_icon.png'
+        case 'chatgpt':
+            image_path = rf'{image_path}\model_images\chatgpt.png'
         case 'huggingface':
             image_path = rf'{image_path}\model_images\hf_icon.png'
         case 'check':
-            image_path = rf'{image_path}\check.png'
+            image_path = rf'{image_path}\model_images\check.png'
         case _:
-            image_path = rf'{image_path}\question_mark.png'
+            image_path = rf'{image_path}\model_images\question_mark.png'
         
     return FileResponse(open(image_path, 'rb'), content_type='image/png')
     
